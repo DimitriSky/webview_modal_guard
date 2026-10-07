@@ -1,0 +1,113 @@
+{
+  "tag": "WV-MODAL-GUARD",
+  "capturedAt": "2026-10-07T20:49:28.940639+00:00",
+  "input": "User physically moved mouse over and around the protected Settings popup, then replied готово",
+  "scope": "Settings popup; this report does not qualify every manual gesture or popup variant",
+  "before": {
+    "routed": 33,
+    "popupMoves": 0,
+    "pageCounts": {},
+    "scrollY": 832,
+    "loadId": "1791405519230:0.822480745845663"
+  },
+  "snapshot": {
+    "tag": "WV-MODAL-GUARD",
+    "ready": true,
+    "guarded": true,
+    "keyGuard": true,
+    "dialogs": 1,
+    "popupMoves": 705,
+    "field": "https://modal.exxample",
+    "slider": 0.8443877551020408,
+    "popupScroll": 276.0,
+    "guard": {
+      "supported": true,
+      "leases": 1,
+      "routed": 628
+    },
+    "native": {
+      "firstResponder": "FlutterView"
+    },
+    "page": {
+      "counts": {},
+      "trusted": {},
+      "last": [],
+      "loadId": "1791405519230:0.822480745845663",
+      "scrollY": 832,
+      "text": "State must survive modal open/close",
+      "hover": false
+    },
+    "error": ""
+  },
+  "additionalNativeEvents": 595,
+  "passed": true,
+  "afterClose": {
+    "tag": "WV-MODAL-GUARD",
+    "ready": true,
+    "guarded": true,
+    "keyGuard": true,
+    "dialogs": 0,
+    "popupMoves": 705,
+    "field": "https://modal.exxample",
+    "slider": 0.8443877551020408,
+    "popupScroll": 276.0,
+    "guard": {
+      "supported": true,
+      "leases": 0,
+      "routed": 630
+    },
+    "native": {
+      "firstResponder": "FlutterView"
+    },
+    "page": {
+      "counts": {},
+      "trusted": {},
+      "last": [],
+      "loadId": "1791405519230:0.822480745845663",
+      "scrollY": 832,
+      "text": "State must survive modal open/close",
+      "hover": false
+    },
+    "error": ""
+  },
+  "closeObservation": "First programmatic pop did not finish within a short background timeout; after raising the app and clicking Close, route removal and lease release completed.",
+  "restoredScroll": {
+    "tag": "WV-MODAL-GUARD",
+    "ready": true,
+    "guarded": true,
+    "keyGuard": true,
+    "dialogs": 0,
+    "popupMoves": 705,
+    "field": "https://modal.exxample",
+    "slider": 0.8443877551020408,
+    "popupScroll": 276.0,
+    "guard": {
+      "leases": 0,
+      "routed": 630,
+      "supported": true
+    },
+    "native": {
+      "firstResponder": "FlutterView"
+    },
+    "page": {
+      "counts": {
+        "wheel": 1
+      },
+      "trusted": {
+        "wheel": 1
+      },
+      "last": [
+        {
+          "type": "wheel",
+          "buttons": 0,
+          "trusted": true
+        }
+      ],
+      "loadId": "1791405519230:0.822480745845663",
+      "scrollY": 0,
+      "text": "State must survive modal open/close",
+      "hover": false
+    },
+    "error": ""
+  }
+}

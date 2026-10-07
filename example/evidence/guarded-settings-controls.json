@@ -1,0 +1,25 @@
+{
+  "tag": "WV-MODAL-GUARD",
+  "ready": true,
+  "guarded": true,
+  "keyGuard": true,
+  "dialogs": 1,
+  "popupMoves": 3,
+  "field": "https://modal.examhttps://guarded.exampleple",
+  "slider": 0.8571428571428571,
+  "guard": {
+    "supported": true,
+    "leases": 1,
+    "routed": 9
+  },
+  "page": {
+    "counts": {},
+    "trusted": {},
+    "last": [],
+    "loadId": "1791404615736:0.3227025801062774",
+    "scrollY": 0,
+    "text": "State must survive modal open/close",
+    "hover": false
+  },
+  "error": ""
+}

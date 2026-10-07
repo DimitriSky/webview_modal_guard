@@ -1,0 +1,15 @@
+{
+  "tag": "WV-MODAL-GUARD",
+  "date": "2026-10-08",
+  "packageDartTests": 8,
+  "packageAppKitTests": 7,
+  "labTests": 1,
+  "packageAnalysis": "passed",
+  "labAnalysis": "passed",
+  "macOSDebugBuild": "passed",
+  "routingSmoke": "passed",
+  "physicalHoverQualification": "passed for protected Settings with user physical mouse input",
+  "productionModified": false,
+  "repositoryLayout": "package with standalone example app",
+  "fullPhysicalMatrix": "not run"
+}

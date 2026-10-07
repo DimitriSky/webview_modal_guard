@@ -3,8 +3,7 @@ Pod::Spec.new do |s|
   s.version = '0.1.0'
   s.summary = 'Native input isolation for Flutter modals over macOS WebViews.'
   s.description = 'Window-scoped AppKit input routing while an explicit modal lease is active.'
-  # Replace with the repository URL after the owner publishes the package.
-  s.homepage = 'https://example.invalid/webview_modal_guard'
+  s.homepage = 'https://github.com/DimitriSky/webview_modal_guard'
   s.license = { :type => 'Proprietary', :file => '../LICENSE' }
   s.author = 'WebView Modal Guard contributors'
   s.source = { :path => '.' }

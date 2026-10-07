@@ -1,0 +1,496 @@
+{
+  "tag": "WV-MODAL-GUARD",
+  "input": "self-posted NSEvents",
+  "trackingAreaQualified": false,
+  "routingSmokePassed": true,
+  "runs": [
+    {
+      "phase": "Baseline Settings",
+      "before": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": false,
+        "keyGuard": true,
+        "dialogs": 1,
+        "popupMoves": 0,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "leases": 0,
+          "routed": 0,
+          "supported": true
+        },
+        "native": {
+          "firstResponder": "FlutterTextInputPlugin"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      },
+      "snapshot": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": false,
+        "keyGuard": true,
+        "dialogs": 1,
+        "popupMoves": 5,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "routed": 0,
+          "supported": true,
+          "leases": 0
+        },
+        "native": {
+          "firstResponder": "FlutterTextInputPlugin"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      }
+    },
+    {
+      "phase": "WebView after close",
+      "before": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": false,
+        "keyGuard": true,
+        "dialogs": 0,
+        "popupMoves": 0,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "routed": 0,
+          "supported": true,
+          "leases": 0
+        },
+        "native": {
+          "firstResponder": "FlutterView"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      },
+      "snapshot": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": false,
+        "keyGuard": true,
+        "dialogs": 0,
+        "popupMoves": 0,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "routed": 0,
+          "supported": true,
+          "leases": 0
+        },
+        "native": {
+          "firstResponder": "FlutterView"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      }
+    },
+    {
+      "phase": "Protected Settings",
+      "before": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": true,
+        "keyGuard": true,
+        "dialogs": 1,
+        "popupMoves": 0,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "supported": true,
+          "leases": 1,
+          "routed": 0
+        },
+        "native": {
+          "firstResponder": "FlutterTextInputPlugin"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      },
+      "snapshot": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": true,
+        "keyGuard": true,
+        "dialogs": 1,
+        "popupMoves": 6,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "supported": true,
+          "leases": 1,
+          "routed": 6
+        },
+        "native": {
+          "firstResponder": "FlutterTextInputPlugin"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      }
+    },
+    {
+      "phase": "Protected parent after nested close",
+      "before": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": true,
+        "keyGuard": true,
+        "dialogs": 1,
+        "popupMoves": 0,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "supported": true,
+          "leases": 1,
+          "routed": 6
+        },
+        "native": {
+          "firstResponder": "FlutterTextInputPlugin"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      },
+      "snapshot": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": true,
+        "keyGuard": true,
+        "dialogs": 1,
+        "popupMoves": 6,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "supported": true,
+          "leases": 1,
+          "routed": 12
+        },
+        "native": {
+          "firstResponder": "FlutterTextInputPlugin"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      }
+    },
+    {
+      "phase": "WebView after close",
+      "before": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": true,
+        "keyGuard": true,
+        "dialogs": 0,
+        "popupMoves": 0,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "routed": 12,
+          "supported": true,
+          "leases": 0
+        },
+        "native": {
+          "firstResponder": "FlutterView"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      },
+      "snapshot": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": true,
+        "keyGuard": true,
+        "dialogs": 0,
+        "popupMoves": 0,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "routed": 12,
+          "supported": true,
+          "leases": 0
+        },
+        "native": {
+          "firstResponder": "FlutterView"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      }
+    },
+    {
+      "phase": "Protected URL",
+      "before": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": true,
+        "keyGuard": true,
+        "dialogs": 1,
+        "popupMoves": 0,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "routed": 12,
+          "supported": true,
+          "leases": 1
+        },
+        "native": {
+          "firstResponder": "FlutterTextInputPlugin"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      },
+      "snapshot": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": true,
+        "keyGuard": true,
+        "dialogs": 1,
+        "popupMoves": 6,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "routed": 18,
+          "supported": true,
+          "leases": 1
+        },
+        "native": {
+          "firstResponder": "FlutterTextInputPlugin"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      }
+    },
+    {
+      "phase": "Protected parent after nested close",
+      "before": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": true,
+        "keyGuard": true,
+        "dialogs": 1,
+        "popupMoves": 0,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "supported": true,
+          "routed": 18,
+          "leases": 1
+        },
+        "native": {
+          "firstResponder": "FlutterTextInputPlugin"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      },
+      "snapshot": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": true,
+        "keyGuard": true,
+        "dialogs": 1,
+        "popupMoves": 6,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "supported": true,
+          "routed": 24,
+          "leases": 1
+        },
+        "native": {
+          "firstResponder": "FlutterTextInputPlugin"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      }
+    },
+    {
+      "phase": "WebView after close",
+      "before": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": true,
+        "keyGuard": true,
+        "dialogs": 0,
+        "popupMoves": 0,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "routed": 24,
+          "leases": 0,
+          "supported": true
+        },
+        "native": {
+          "firstResponder": "FlutterView"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      },
+      "snapshot": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": true,
+        "keyGuard": true,
+        "dialogs": 0,
+        "popupMoves": 0,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "popupScroll": 0.0,
+        "guard": {
+          "routed": 24,
+          "leases": 0,
+          "supported": true
+        },
+        "native": {
+          "firstResponder": "FlutterView"
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791408434388:0.06091125122390739",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      }
+    }
+  ]
+}

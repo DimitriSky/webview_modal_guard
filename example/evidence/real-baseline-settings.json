@@ -1,0 +1,140 @@
+{
+  "tag": "WV-MODAL-GUARD",
+  "ready": true,
+  "guarded": false,
+  "keyGuard": true,
+  "dialogs": 1,
+  "popupMoves": 50,
+  "field": "https://modal.example",
+  "slider": 0.4,
+  "guard": {
+    "routed": 0,
+    "supported": true,
+    "leases": 0
+  },
+  "page": {
+    "counts": {
+      "mouseenter": 5,
+      "mouseleave": 8,
+      "pointermove": 49,
+      "mousemove": 49,
+      "iframe:pointermove": 3,
+      "iframe:mousemove": 3
+    },
+    "trusted": {
+      "mouseenter": 5,
+      "mouseleave": 8,
+      "pointermove": 49,
+      "mousemove": 49,
+      "iframe:pointermove": 3,
+      "iframe:mousemove": 3
+    },
+    "last": [
+      {
+        "type": "pointermove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "mousemove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "pointermove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "mousemove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "mouseleave",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "pointermove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "mousemove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "mouseleave",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "mouseenter",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "iframe:pointermove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "iframe:mousemove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "pointermove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "mousemove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "iframe:pointermove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "iframe:mousemove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "iframe:pointermove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "iframe:mousemove",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "mouseleave",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "mouseleave",
+        "buttons": 0,
+        "trusted": true
+      },
+      {
+        "type": "mouseleave",
+        "buttons": 0,
+        "trusted": true
+      }
+    ],
+    "loadId": "1791404615736:0.3227025801062774",
+    "scrollY": 0,
+    "text": "State must survive modal open/close",
+    "hover": false
+  },
+  "error": ""
+}

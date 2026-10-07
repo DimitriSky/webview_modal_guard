@@ -4,12 +4,14 @@ macOS Flutter plugin that isolates a **full-window Flutter modal** from native W
 
 ## Use
 
-Keep the package and lab as sibling directories for local development:
+For an application consuming the package from GitHub, pin an immutable commit:
 
 ```yaml
 dependencies:
   webview_modal_guard:
-    path: ../webview_modal_guard
+    git:
+      url: https://github.com/DimitriSky/webview_modal_guard.git
+      ref: 3a765df1519ec9bc767106e3bbfdea44f0113231
 ```
 
 Replace a full-window Material `showDialog` call:
@@ -56,8 +58,18 @@ swift test
 
 Dart tests cover lease overlap, retry, error cleanup, late acquisition after context removal, Navigator disposal, and protection through reverse animation. Standalone AppKit tests cover window/view bounds, detached views, nested tokens, exact mouse dispatch and keyboard pass-through. These are policy/lifecycle tests, not proof of physical WebKit hover isolation.
 
-Native reproduction and qualification live in the separate sibling `flutter-webview-modal-events` app. Its README and `evidence/` distinguish observed native DOM leakage, routing smoke checks, and physical-input qualification. Current test stack: Flutter 3.44.6 / Dart 3.12.2, macOS, `flutter_inappwebview` 6.1.5 (`flutter_inappwebview_macos` 1.1.2). Protected Settings passed a user-driven physical hover check in the lab, with 595 additional native events and zero DOM input; the full physical popup/gesture matrix has not been run. Recheck the relevant scenarios when integrating into the target application.
+Native reproduction and qualification live in the [example app](example/README.md). Its [evidence](example/evidence/) distinguishes observed native DOM leakage, routing smoke checks, and physical-input qualification. Current test stack: Flutter 3.44.6 / Dart 3.12.2, macOS, `flutter_inappwebview` 6.1.5 (`flutter_inappwebview_macos` 1.1.2). Protected Settings passed a user-driven physical hover check in the lab, with 595 additional native events and zero DOM input; the full physical popup/gesture matrix has not been run. Recheck the relevant scenarios when integrating into the target application.
 
-## GitHub handoff
+The example is a standalone Flutter application with its own native runner and test harness. It uses `path: ..` to exercise the package source in the same checkout:
 
-This package has a local Git repository; no remote has been configured. The native lab remains a separate project, and no production application has been changed. After the owner creates/pushes the two GitHub repositories and supplies their URLs, update package metadata and replace the lab's local path with a Git dependency pinned to a commit. SimpleWebBrowser integration is a separate subsequent step. The license is deliberately not an open-source grant; choose the intended license before public redistribution.
+```sh
+cd example
+flutter pub get
+flutter analyze
+flutter test
+flutter run -d macos
+```
+
+## Repository and integration
+
+The package and example share the [webview_modal_guard repository](https://github.com/DimitriSky/webview_modal_guard). The example's local dependency keeps reproduction and implementation together; consuming applications use the Git URL with a pinned commit. The installation snippet above pins the initial published implementation. SimpleWebBrowser integration is a separate subsequent step. The existing proprietary license is unchanged.

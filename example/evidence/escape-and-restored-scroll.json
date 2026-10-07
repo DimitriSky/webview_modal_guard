@@ -1,0 +1,39 @@
+{
+  "tag": "WV-MODAL-GUARD",
+  "ready": true,
+  "guarded": true,
+  "keyGuard": true,
+  "dialogs": 0,
+  "popupMoves": 2,
+  "field": "https://modal.exxample",
+  "slider": 0.8443877551020408,
+  "popupScroll": 276.0,
+  "guard": {
+    "leases": 0,
+    "supported": true,
+    "routed": 9
+  },
+  "native": {
+    "firstResponder": "FlutterView"
+  },
+  "page": {
+    "counts": {
+      "wheel": 1
+    },
+    "trusted": {
+      "wheel": 1
+    },
+    "last": [
+      {
+        "type": "wheel",
+        "buttons": 0,
+        "trusted": true
+      }
+    ],
+    "loadId": "1791405519230:0.822480745845663",
+    "scrollY": 832,
+    "text": "State must survive modal open/close",
+    "hover": false
+  },
+  "error": ""
+}

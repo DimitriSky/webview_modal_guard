@@ -1,0 +1,35 @@
+{
+  "tag": "WV-MODAL-GUARD",
+  "input": "AppKit NSEvents posted to the lab window; no OS-wide injection",
+  "runs": [
+    {
+      "guarded": false,
+      "kind": "Settings",
+      "snapshot": {
+        "tag": "WV-MODAL-GUARD",
+        "ready": true,
+        "guarded": false,
+        "keyGuard": true,
+        "dialogs": 1,
+        "popupMoves": 6,
+        "field": "https://modal.example",
+        "slider": 0.4,
+        "guard": {
+          "leases": 0,
+          "supported": true,
+          "routed": 0
+        },
+        "page": {
+          "counts": {},
+          "trusted": {},
+          "last": [],
+          "loadId": "1791404615736:0.3227025801062774",
+          "scrollY": 0,
+          "text": "State must survive modal open/close",
+          "hover": false
+        },
+        "error": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><title>Modal Input Probe</title>
+<style>
+body{margin:0;font:16px system-ui;background:#eef3fa;color:#16223c;height:2200px}
+header{padding:20px;background:#172742;color:white;position:sticky;top:0;pointer-events:none}
+#zone{margin:25px;padding:45px;border:3px dashed #526aad;border-radius:18px;min-height:320px;background:#dce6ff}
+#zone:hover{background:#ffe299;border-color:#b45309}
+input,button{font:inherit;padding:10px;margin:12px}iframe{display:block;width:85%;height:180px;margin:25px}
+pre{white-space:pre-wrap;font:13px ui-monospace}
+</style>
+<header><h2>Native mouse → WebKit → DOM</h2><div id="summary">Move the pointer, then open a Flutter popup.</div></header>
+<section id="zone">Hover zone: turns yellow when WebKit receives native hover.
+<p>The Flutter modal must isolate this page, including the dimmed area.</p>
+<input id="text" value="State must survive modal open/close"><button id="button">Page click counter</button>
+<pre id="events"></pre></section>
+<iframe id="frame" srcdoc="<style>body{font:16px system-ui;background:#eee}body:hover{background:#cfc}</style><p>Same-origin iframe input probe</p><input value='iframe text'><script>for(const t of ['mousemove','pointermove','mousedown','mouseup','click','wheel']) document.addEventListener(t,e=>parent.modalProbe.record('iframe:'+t,e),true);</script>"></iframe>
+<script>
+(() => {
+  let counts={}, trusted={}, last=[];
+  const loadId=Date.now()+':'+Math.random();
+  function render(){
+    document.querySelector('#summary').textContent='mousemove: '+(counts.mousemove||0)+' / pointermove: '+(counts.pointermove||0)+' / click: '+(counts.click||0)+' / wheel: '+(counts.wheel||0);
+    document.querySelector('#events').textContent=JSON.stringify({counts,trusted},null,2);
+  }
+  function record(type,e){
+    counts[type]=(counts[type]||0)+1;
+    if(e.isTrusted) trusted[type]=(trusted[type]||0)+1;
+    last.push({type,buttons:e.buttons??0,trusted:e.isTrusted}); if(last.length>20)last.shift();
+    render();
+  }
+  window.modalProbe={record,reset(){counts={};trusted={};last=[];render();},snapshot(){return {
+    counts:{...counts},trusted:{...trusted},last:[...last],loadId,scrollY,
+    text:document.querySelector('#text').value,hover:document.querySelector('#zone').matches(':hover')
+  };}};
+  for(const t of ['mousemove','pointermove','mouseenter','mouseleave','mousedown','mouseup','pointerdown','pointerup','click','contextmenu','wheel','keydown','keyup']) document.addEventListener(t,e=>record(t,e),true);
+})();
+</script></html>
