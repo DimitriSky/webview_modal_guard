@@ -176,4 +176,88 @@ void main() {
       debugDefaultTargetPlatformOverride = null;
     },
   );
+
+  testWidgets('dialog is not pushed until native acquisition acknowledges', (
+    tester,
+  ) async {
+    final acquired = Completer<String>();
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (call) async {
+          calls.add(call);
+          return call.method == 'acquire' ? acquired.future : null;
+        });
+    late BuildContext context;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Builder(
+          builder: (value) {
+            context = value;
+            return const SizedBox();
+          },
+        ),
+      ),
+    );
+    final result = showWebViewGuardedDialog(
+      context: context,
+      builder: (_) => const AlertDialog(title: Text('Protected')),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Protected'), findsNothing);
+    acquired.complete('acknowledged');
+    await tester.pumpAndSettle();
+    expect(find.text('Protected'), findsOneWidget);
+    Navigator.of(context).pop();
+    await tester.pumpAndSettle();
+    await result;
+    expect(calls.last.arguments, {'token': 'acknowledged'});
+    debugDefaultTargetPlatformOverride = null;
+  });
+
+  testWidgets(
+    'nested dialog removal releases child while parent stays guarded',
+    (tester) async {
+      late BuildContext context, parentContext;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (value) {
+              context = value;
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+      final parent = showWebViewGuardedDialog<String>(
+        context: context,
+        builder: (value) {
+          parentContext = value;
+          return const AlertDialog(title: Text('Parent'));
+        },
+      );
+      await tester.pumpAndSettle();
+      final child = showWebViewGuardedDialog<String>(
+        context: parentContext,
+        builder: (_) => const AlertDialog(title: Text('Child')),
+      );
+      await tester.pumpAndSettle();
+      Navigator.of(parentContext).pop('child');
+      await tester.pump();
+      expect(calls.where((c) => c.method == 'release'), isEmpty);
+      await tester.pumpAndSettle();
+      expect(await child, 'child');
+      expect(find.text('Parent'), findsOneWidget);
+      expect(calls.last.arguments, {'token': 'lease-2'});
+      Navigator.of(context).pop('parent');
+      await tester.pumpAndSettle();
+      expect(await parent, 'parent');
+      expect(
+        calls.where((c) => c.method == 'release').map((c) => c.arguments),
+        [
+          {'token': 'lease-2'},
+          {'token': 'lease-1'},
+        ],
+      );
+      debugDefaultTargetPlatformOverride = null;
+    },
+  );
 }

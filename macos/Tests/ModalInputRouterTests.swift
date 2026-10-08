@@ -3,6 +3,17 @@ import XCTest
 @testable import WebViewModalGuardCore
 
 final class ModalInputRouterTests: XCTestCase {
+  // CG-created events have no AppKit dispatch window. Supply only the window
+  // and local position, delegating type/button queries to the native event.
+  private final class ScopedEvent: NSEvent {
+    var source: NSEvent!
+    weak var scopedWindow: NSWindow?
+    var point = NSPoint.zero
+    override var type: NSEvent.EventType { source.type }
+    override var buttonNumber: Int { source.buttonNumber }
+    override var window: NSWindow? { scopedWindow }
+    override var locationInWindow: NSPoint { point }
+  }
   private final class Receiver: NSResponder {
     var events: [NSEvent.EventType] = []
     override func mouseMoved(with event: NSEvent) { events.append(event.type) }
@@ -11,8 +22,11 @@ final class ModalInputRouterTests: XCTestCase {
     override func mouseDragged(with event: NSEvent) { events.append(event.type) }
     override func rightMouseDown(with event: NSEvent) { events.append(event.type) }
     override func rightMouseUp(with event: NSEvent) { events.append(event.type) }
+    override func rightMouseDragged(with event: NSEvent) { events.append(event.type) }
     override func otherMouseDown(with event: NSEvent) { events.append(event.type) }
     override func otherMouseUp(with event: NSEvent) { events.append(event.type) }
+    override func otherMouseDragged(with event: NSEvent) { events.append(event.type) }
+    override func scrollWheel(with event: NSEvent) { events.append(event.type) }
   }
   private func window() -> NSWindow {
     _ = NSApplication.shared
@@ -26,6 +40,21 @@ final class ModalInputRouterTests: XCTestCase {
                      at point: NSPoint = NSPoint(x: 50, y: 50)) -> NSEvent {
     NSEvent.mouseEvent(with: type, location: point, modifierFlags: [], timestamp: 1,
       windowNumber: window.windowNumber, context: nil, eventNumber: 1, clickCount: 1, pressure: 0)!
+  }
+
+  private func scoped(_ cg: CGEvent, in window: NSWindow,
+                      at point: NSPoint = NSPoint(x: 50, y: 50)) -> NSEvent {
+    let e = ScopedEvent()
+    e.source = NSEvent(cgEvent: cg)!
+    e.scopedWindow = window
+    e.point = point
+    return e
+  }
+
+  private func button(_ window: NSWindow, _ type: CGEventType, _ button: CGMouseButton,
+                      at point: NSPoint = NSPoint(x: 50, y: 50)) -> NSEvent {
+    scoped(CGEvent(mouseEventSource: nil, mouseType: type,
+                   mouseCursorPosition: .zero, mouseButton: button)!, in: window, at: point)
   }
 
   func testNoLeasePassesOriginalEventUnchanged() {
@@ -129,5 +158,62 @@ final class ModalInputRouterTests: XCTestCase {
     }
     XCTAssertTrue(receiver.events.isEmpty)
     XCTAssertEqual(router.routed, 2)
+  }
+
+  func testDifferentButtonsKeepIndependentCaptureOutsideView() {
+    let window = window(), receiver = Receiver()
+    let flutter = NSView(frame: NSRect(x: 0, y: 0, width: 100, height: 100))
+    window.contentView!.addSubview(flutter)
+    let router = ModalInputRouter(view: flutter, receiver: receiver)
+    let token = router.acquire()
+    defer { router.release(token) }
+    let outside = NSPoint(x: 200, y: 200)
+    XCTAssertNil(router.filter(button(window, .leftMouseDown, .left)))
+    XCTAssertNil(router.filter(button(window, .rightMouseDown, .right)))
+    XCTAssertNil(router.filter(button(window, .leftMouseUp, .left, at: outside)))
+    XCTAssertNil(router.filter(button(window, .rightMouseDragged, .right, at: outside)))
+    XCTAssertNil(router.filter(button(window, .rightMouseUp, .right, at: outside)))
+    let subsequent = button(window, .rightMouseDragged, .right, at: outside)
+    XCTAssertTrue(router.filter(subsequent) === subsequent)
+    XCTAssertEqual(receiver.events, [.leftMouseDown, .rightMouseDown, .leftMouseUp,
+                                     .rightMouseDragged, .rightMouseUp])
+  }
+
+  func testScrollWheelRoutesOnceAndNeverContinuesAButtonDragOutsideView() {
+    let window = window(), receiver = Receiver()
+    let flutter = NSView(frame: NSRect(x: 0, y: 0, width: 100, height: 100))
+    window.contentView!.addSubview(flutter)
+    let router = ModalInputRouter(view: flutter, receiver: receiver)
+    let token = router.acquire()
+    defer { router.release(token) }
+    let cg = CGEvent(scrollWheelEvent2Source: nil, units: .pixel, wheelCount: 1,
+                     wheel1: 12, wheel2: 0, wheel3: 0)!
+    let e = scoped(cg, in: window)
+    XCTAssertTrue(e.window === window)
+    XCTAssertNil(router.filter(e))
+    XCTAssertEqual(receiver.events, [.scrollWheel])
+    XCTAssertNil(router.filter(event(window, .leftMouseDown)))
+    let outside = scoped(cg, in: window, at: NSPoint(x: 200, y: 200))
+    XCTAssertTrue(router.filter(outside) === outside)
+    XCTAssertEqual(receiver.events, [.scrollWheel, .leftMouseDown])
+  }
+
+  func testNativeWindowButtonsRemainAvailableWhenFlutterExtendsIntoTitlebar() {
+    let window = window(), receiver = Receiver()
+    window.styleMask = [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView]
+    let view = window.contentView!
+    let router = ModalInputRouter(view: view, receiver: receiver)
+    let token = router.acquire()
+    defer { router.release(token) }
+    for kind in [NSWindow.ButtonType.closeButton, .miniaturizeButton, .zoomButton] {
+      let button = window.standardWindowButton(kind)!
+      XCTAssertFalse(button.isHidden)
+      let point = button.convert(NSPoint(x: button.bounds.midX, y: button.bounds.midY), to: nil)
+      XCTAssertTrue(view.bounds.contains(view.convert(point, from: nil)))
+      let e = event(window, .leftMouseDown, at: point)
+      XCTAssertTrue(router.filter(e) === e)
+    }
+    XCTAssertTrue(receiver.events.isEmpty)
+    XCTAssertEqual(router.routed, 0)
   }
 }

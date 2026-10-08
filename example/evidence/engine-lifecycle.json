@@ -8,21 +8,29 @@
       "beforeRestart": {
         "dialogs": 2,
         "guard": {
+          "routed": 0,
+          "supported": true,
+          "leases": 2
+        }
+      },
+      "background": {
+        "routed": 0,
+        "supported": true,
+        "leases": 2
+      },
+      "afterHotReload": {
+        "dialogs": 2,
+        "guard": {
           "supported": true,
           "leases": 2,
           "routed": 0
         }
       },
-      "background": {
-        "supported": true,
-        "leases": 2,
-        "routed": 0
-      },
       "afterRestart": {
         "dialogs": 0,
         "guard": {
-          "leases": 0,
           "supported": true,
+          "leases": 0,
           "routed": 0
         }
       },
@@ -58,6 +66,14 @@
         "supported": true,
         "leases": 2
       },
+      "afterHotReload": {
+        "dialogs": 2,
+        "guard": {
+          "routed": 0,
+          "supported": true,
+          "leases": 2
+        }
+      },
       "afterRestart": {
         "dialogs": 0,
         "guard": {
@@ -69,17 +85,17 @@
       "reopened": {
         "dialogs": 1,
         "guard": {
-          "leases": 1,
           "supported": true,
+          "leases": 1,
           "routed": 0
         }
       },
       "closed": {
         "dialogs": 0,
         "guard": {
-          "leases": 0,
+          "routed": 0,
           "supported": true,
-          "routed": 0
+          "leases": 0
         }
       }
     }
@@ -87,9 +103,10 @@
   "initial": {
     "dialogs": 0,
     "guard": {
-      "routed": 0,
       "supported": true,
-      "leases": 0
+      "leases": 0,
+      "routed": 0
     }
-  }
+  },
+  "routingSmokeAfterRestarts": true
 }

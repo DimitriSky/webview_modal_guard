@@ -54,8 +54,9 @@ python3 tool/qualify_lifecycle.py
 
 The script launches and closes its own macOS runner. For Settings and URL it
 opens nested dialogs, registers a real background isolate while both leases
-are live, hot restarts the root isolate, and checks zero stale leases followed
-by successful reopen/close. It uses the owned loopback API and Flutter CLI;
+are live, verifies hot reload retains both, hot restarts the root isolate,
+and checks zero stale leases followed by successful reopen/close. Finally it
+runs the routing smoke scenario after the restarts. It uses the owned loopback API and Flutter CLI;
 it does not qualify physical hover. Count-only evidence is written to
 `evidence/engine-lifecycle.json`.
 
@@ -72,7 +73,7 @@ it does not qualify physical hover. Count-only evidence is written to
 - `evidence/physical-settings-qualification.json`: user physically moved the mouse over and around protected Settings. Native routing increased from 33 to 628 (595 events), Flutter observed hover, and DOM counts stayed empty. After closing, leases returned to zero and WebView received a trusted wheel event without reloading.
 - `evidence/physical-qualification.json`: generated only by `--physical`; the full multi-phase physical matrix has not been run. Physical hover for the URL variant and every gesture are not claimed by the Settings report.
 
-Verified local stack: Flutter 3.44.6 / Dart 3.12.2. Package has 8 Dart tests and 8 standalone AppKit tests; lab has one HTTP harness test. The macOS Debug build succeeds. CocoaPods is used for `flutter_inappwebview_macos` because that dependency does not provide SwiftPM support; the new package supports both pod and SwiftPM registration.
+Verified local stack: Flutter 3.44.6 / Dart 3.12.2. Package has 10 Dart tests and 11 standalone AppKit tests; lab has one HTTP harness test. The macOS Debug build succeeds. CocoaPods is used for `flutter_inappwebview_macos` because that dependency does not provide SwiftPM support; the new package supports both pod and SwiftPM registration.
 
 ## Repository layout
 

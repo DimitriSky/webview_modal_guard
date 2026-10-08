@@ -6,6 +6,7 @@ Run from example/. Uses its loopback diagnostic API; does not inject OS input.
 import json
 import queue
 import subprocess
+import sys
 import threading
 import time
 import urllib.request
@@ -16,12 +17,15 @@ process = subprocess.Popen(
     stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1,
 )
 urls = queue.Queue()
+reloads = queue.Queue()
 
 
 def read_output():
     for line in process.stdout:
         if 'MODAL_LAB_URL=' in line:
             urls.put(line.split('MODAL_LAB_URL=', 1)[1].strip())
+        if line.strip().startswith('Reloaded '):
+            reloads.put(True)
 
 
 threading.Thread(target=read_output, daemon=True).start()
@@ -63,7 +67,11 @@ try:
         background = action('background')
         assert background['leases'] == 2, 'Background registration cleared UI protection'
         wait(2, 2)
-        print(f'{kind}: nested + background registration passed; restarting', flush=True)
+        process.stdin.write('r\n')
+        process.stdin.flush()
+        reloads.get(timeout=30)
+        reloaded = wait(2, 2)
+        print(f'{kind}: nested + background registration + hot reload passed; restarting', flush=True)
         process.stdin.write('R\n')
         process.stdin.flush()
         base = urls.get(timeout=30)
@@ -73,8 +81,12 @@ try:
         action('close')
         closed = wait(0, 0)
         report['runs'].append({'popup': kind, 'beforeRestart': opened,
-                               'background': background, 'afterRestart': restarted,
+                               'background': background, 'afterHotReload': reloaded,
+                               'afterRestart': restarted,
                                'reopened': reopened, 'closed': closed})
+    subprocess.run([sys.executable, 'tool/qualify.py', base, '--output',
+                    'evidence/review-routing-smoke.json'], check=True)
+    report['routingSmokeAfterRestarts'] = True
     report['passed'] = True
     print('Engine lifecycle qualification passed', flush=True)
 except Exception as error:
