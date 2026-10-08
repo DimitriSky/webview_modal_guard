@@ -44,6 +44,21 @@ Immediately return to the lab and continuously move the real mouse across the we
 
 A valid physical qualification requires all of these: baseline reproduces, protected input is observed by both the native router and Flutter, DOM receives no movement/click/wheel, nested close remains protected, and input resumes after final close. Zero DOM counts without observed input are inconclusive. Repeat manual field, slider, right-click, scroll, Escape and barrier dismissal checks, and verify a separate native window remains interactive.
 
+## Engine lifecycle qualification
+
+With other lab instances closed, run from `example/`:
+
+```sh
+python3 tool/qualify_lifecycle.py
+```
+
+The script launches and closes its own macOS runner. For Settings and URL it
+opens nested dialogs, registers a real background isolate while both leases
+are live, hot restarts the root isolate, and checks zero stale leases followed
+by successful reopen/close. It uses the owned loopback API and Flutter CLI;
+it does not qualify physical hover. Count-only evidence is written to
+`evidence/engine-lifecycle.json`.
+
 ## Evidence and current status
 
 - `evidence/real-baseline-settings.json`: actual trusted page movement observed while baseline Settings was open; confirms the bug in this native stack. The input source was not controlled for this captured interval.
@@ -57,7 +72,7 @@ A valid physical qualification requires all of these: baseline reproduces, prote
 - `evidence/physical-settings-qualification.json`: user physically moved the mouse over and around protected Settings. Native routing increased from 33 to 628 (595 events), Flutter observed hover, and DOM counts stayed empty. After closing, leases returned to zero and WebView received a trusted wheel event without reloading.
 - `evidence/physical-qualification.json`: generated only by `--physical`; the full multi-phase physical matrix has not been run. Physical hover for the URL variant and every gesture are not claimed by the Settings report.
 
-Verified local stack: Flutter 3.44.6 / Dart 3.12.2. Package has 8 Dart tests and 7 standalone AppKit tests; lab has one HTTP harness test. The macOS Debug build succeeds. CocoaPods is used for `flutter_inappwebview_macos` because that dependency does not provide SwiftPM support; the new package supports both pod and SwiftPM registration.
+Verified local stack: Flutter 3.44.6 / Dart 3.12.2. Package has 8 Dart tests and 8 standalone AppKit tests; lab has one HTTP harness test. The macOS Debug build succeeds. CocoaPods is used for `flutter_inappwebview_macos` because that dependency does not provide SwiftPM support; the new package supports both pod and SwiftPM registration.
 
 ## Repository layout
 

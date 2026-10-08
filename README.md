@@ -45,6 +45,8 @@ Keyboard events keep their existing responder path. This package can coexist wit
 
 This is for modals covering the **whole Flutter content area**. A partial popover that permits interacting with the rest of the WebView needs a different policy. Non-macOS platforms use a no-op lease. Acquire on the main UI isolate after the Flutter view is mounted in a window.
 
+Flutter automatically registers a Dart startup hook that disposes stale native leases after hot restart. Acquisition and diagnostics wait for its acknowledgment. Background-isolate registration leaves the UI's leases intact. Registration does not initialize or replace the application's Flutter binding. Routing counts start again at zero for the new root isolate.
+
 Existing CSS hover state is not explicitly cleared on acquisition; the package suppresses subsequent delivery, rather than rewriting DOM state. AppKit local monitors do not run inside every native tracking loop (native menus/window drags); those loops are outside the Flutter modal qualification. See [Apple event-monitor documentation](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/EventOverview/MonitoringEvents/MonitoringEvents.html). Flutter's engine documents tracking areas ignoring occluding views in [FlutterMutatorView.mm](https://github.com/flutter/flutter/blob/ee80f08bbf97172ec030b8751ceab557177a34a6/engine/src/flutter/shell/platform/darwin/macos/framework/Source/FlutterMutatorView.mm#L55).
 
 ## Verification
@@ -59,6 +61,8 @@ swift test
 Dart tests cover lease overlap, retry, error cleanup, late acquisition after context removal, Navigator disposal, and protection through reverse animation. Standalone AppKit tests cover window/view bounds, detached views, nested tokens, exact mouse dispatch and keyboard pass-through. These are policy/lifecycle tests, not proof of physical WebKit hover isolation.
 
 Native reproduction and qualification live in the [example app](example/README.md). Its [evidence](example/evidence/) distinguishes observed native DOM leakage, routing smoke checks, and physical-input qualification. Current test stack: Flutter 3.44.6 / Dart 3.12.2, macOS, `flutter_inappwebview` 6.1.5 (`flutter_inappwebview_macos` 1.1.2). Protected Settings passed a user-driven physical hover check in the lab, with 595 additional native events and zero DOM input; the full physical popup/gesture matrix has not been run. Recheck the relevant scenarios when integrating into the target application.
+
+The [package audit](docs/review-loops-2026-10-08.md) records scoped review rounds and engine lifecycle qualification.
 
 The example is a standalone Flutter application with its own native runner and test harness. It uses `path: ..` to exercise the package source in the same checkout:
 

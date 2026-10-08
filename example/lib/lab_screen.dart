@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:isolate';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -131,6 +132,8 @@ class _LabScreenState extends State<LabScreen> {
         await native.invokeMethod<void>('key', args);
       case 'nested':
         open('Nested');
+      case 'background':
+        return await checkBackgroundRegistration();
       case 'keyGuard':
         keyGuard = args['enabled'] as bool;
         await const WebViewKeyGuard().setEnabled(keyGuard);
@@ -221,4 +224,24 @@ class _LabScreenState extends State<LabScreen> {
       ],
     ),
   );
+}
+
+/// Exercise Flutter's real background plugin registrant while UI leases live.
+Future<Object?> checkBackgroundRegistration() async {
+  final reply = ReceivePort();
+  final worker = await Isolate.spawn(_backgroundGuardState, (
+    RootIsolateToken.instance!,
+    reply.sendPort,
+  ));
+  try {
+    return await reply.first.timeout(const Duration(seconds: 5));
+  } finally {
+    worker.kill(priority: Isolate.immediate);
+    reply.close();
+  }
+}
+
+void _backgroundGuardState((RootIsolateToken, SendPort) args) async {
+  BackgroundIsolateBinaryMessenger.ensureInitialized(args.$1);
+  args.$2.send(await const WebViewModalGuard().status());
 }

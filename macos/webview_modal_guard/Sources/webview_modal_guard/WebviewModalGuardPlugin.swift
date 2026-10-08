@@ -13,6 +13,11 @@ public final class WebviewModalGuardPlugin: NSObject, FlutterPlugin {
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
+    case "reset":
+      // A new root Dart isolate has no surviving modal routes or leases.
+      // Disposing the old router removes its local monitor as well.
+      router = nil
+      result(nil)
     case "acquire":
       guard let view = view, view.window != nil, let receiver = controller(for: view) else {
         result(FlutterError(code: "NO_WINDOW", message: "A mounted Flutter window is required.", details: nil))

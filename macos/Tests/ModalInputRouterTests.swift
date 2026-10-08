@@ -115,4 +115,19 @@ final class ModalInputRouterTests: XCTestCase {
     XCTAssertTrue(router.filter(e) === e)
     XCTAssertTrue(receiver.events.isEmpty)
   }
+
+  func testWebKitTrackingNotificationsDoNotForwardForeignHoverToFlutter() {
+    let window = window(), receiver = Receiver()
+    let router = ModalInputRouter(view: window.contentView!, receiver: receiver)
+    let token = router.acquire()
+    defer { router.release(token) }
+    for type in [NSEvent.EventType.mouseEntered, .mouseExited] {
+      let e = NSEvent.enterExitEvent(with: type, location: NSPoint(x: 50, y: 50),
+        modifierFlags: [], timestamp: 1, windowNumber: window.windowNumber,
+        context: nil, eventNumber: 1, trackingNumber: 1, userData: nil)!
+      XCTAssertNil(router.filter(e))
+    }
+    XCTAssertTrue(receiver.events.isEmpty)
+    XCTAssertEqual(router.routed, 2)
+  }
 }

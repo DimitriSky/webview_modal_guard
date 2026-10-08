@@ -1,0 +1,95 @@
+{
+  "tag": "WV-MODAL-GUARD",
+  "kind": "engine lifecycle",
+  "passed": true,
+  "runs": [
+    {
+      "popup": "Settings",
+      "beforeRestart": {
+        "dialogs": 2,
+        "guard": {
+          "supported": true,
+          "leases": 2,
+          "routed": 0
+        }
+      },
+      "background": {
+        "supported": true,
+        "leases": 2,
+        "routed": 0
+      },
+      "afterRestart": {
+        "dialogs": 0,
+        "guard": {
+          "leases": 0,
+          "supported": true,
+          "routed": 0
+        }
+      },
+      "reopened": {
+        "dialogs": 1,
+        "guard": {
+          "routed": 0,
+          "supported": true,
+          "leases": 1
+        }
+      },
+      "closed": {
+        "dialogs": 0,
+        "guard": {
+          "routed": 0,
+          "supported": true,
+          "leases": 0
+        }
+      }
+    },
+    {
+      "popup": "URL",
+      "beforeRestart": {
+        "dialogs": 2,
+        "guard": {
+          "routed": 0,
+          "supported": true,
+          "leases": 2
+        }
+      },
+      "background": {
+        "routed": 0,
+        "supported": true,
+        "leases": 2
+      },
+      "afterRestart": {
+        "dialogs": 0,
+        "guard": {
+          "routed": 0,
+          "supported": true,
+          "leases": 0
+        }
+      },
+      "reopened": {
+        "dialogs": 1,
+        "guard": {
+          "leases": 1,
+          "supported": true,
+          "routed": 0
+        }
+      },
+      "closed": {
+        "dialogs": 0,
+        "guard": {
+          "leases": 0,
+          "supported": true,
+          "routed": 0
+        }
+      }
+    }
+  ],
+  "initial": {
+    "dialogs": 0,
+    "guard": {
+      "routed": 0,
+      "supported": true,
+      "leases": 0
+    }
+  }
+}

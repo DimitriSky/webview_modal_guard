@@ -18,3 +18,4 @@ flutter:
     platforms:
       macos:
         pluginClass: WebviewModalGuardPlugin
+        dartPluginClass: WebViewModalGuardPlugin

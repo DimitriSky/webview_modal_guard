@@ -1,3 +1,9 @@
+## Unreleased
+
+- Remove stale native modal leases automatically after root-isolate hot restart.
+- Preserve active UI leases during background-isolate plugin registration.
+- Add a real-runner lifecycle qualification for nested Settings/URL dialogs and restart recovery.
+
 ## 0.1.0
 
 - Public AppKit mouse routing scoped to an engine's Flutter view/window during modal leases.
